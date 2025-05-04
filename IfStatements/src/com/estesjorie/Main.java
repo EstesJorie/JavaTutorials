@@ -11,5 +11,8 @@ public class Main {
         } else {
             System.out.println("Cold day!");
         }
+
+        int income = 120_000;
+        boolean hasHighIncome = (income > 100_000);
     }
 }
