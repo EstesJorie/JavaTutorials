@@ -5,40 +5,29 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int principal = 0;
-        byte years = 0;
-        float annualRate = 0;
+        int principal = (int)readNumber("Principal", 1000, 1_000_000);
+        float annualRate = (float)readNumber("Annual Interest Rate: ", 1, 30);
+        byte years = (byte)readNumber("Period (Years): ", 1, 30)
 
-        Scanner scanner = new Scanner(System.in);
-
-        while(true) {
-            System.out.println("Principal: ");
-            principal = scanner.nextInt();
-            if (principal >= 1000 && principal <= 1_000_000)
-                break;
-            System.out.println("Enter a valid value between 1000 and 1,000,000!");
-        }
-
-        while(true) {
-            System.out.println("Annual Rate (Interest): ");
-            annualRate = scanner.nextFloat();
-            if (annualRate >= 1 && annualRate <= 30) {
-                break;
-            }
-            System.out.println("Enter a valid value between 1 and 30!");
-        }
-
-        while(true) {
-            System.out.println("Years: ");
-            years = scanner.nextByte();
-            if (years>=1 && years <=30) {
-                break;
-            }
-            System.out.println("Enter a valid value between 1 and 30!");
-        }
         double mortgage = calcMortgage(principal, annualRate, years);
         String mortgageFormat = NumberFormat.getCurrencyInstance().format(mortgage);
         System.out.println("Mortgage: " + mortgageFormat);
+    }
+
+    public static double readNumber(String prompt, double min, double max) {
+        Scanner scanner = new Scanner(System.in);
+        double value;
+
+        while(true) {
+            System.out.println(prompt);
+            value = scanner.nextFloat();
+            if (value >= min && value <= max) {
+                break;
+            }
+            System.out.println("Enter a valid value between " + min + " and " + max);
+        }
+
+        return value;
     }
 
     public static double calcMortgage(double principal, float annualRate, byte years){
